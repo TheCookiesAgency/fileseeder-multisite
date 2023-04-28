@@ -15,7 +15,7 @@ def submit():
         traduccion = None
     else:
         traduccion = traduccion_entry.get()
-    fileseeder(tipo[select.get()], name, traduccion)
+    fileseeder( None, tipo[select.get()], name, traduccion)
     name_entry.delete(0, tk.END)
     traduccion_entry.delete(0, tk.END)
     

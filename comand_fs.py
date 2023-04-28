@@ -23,4 +23,4 @@ if __name__ == "__main__":
         delete = True
         
     # Llamar a la función fileseeder con los valores de tipo, name y delete
-    fileseeder(tipo, name, traduccion, delete)
+    fileseeder( None, tipo, name, traduccion, delete)

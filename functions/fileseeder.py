@@ -4,7 +4,7 @@ from .camel_to_kebab import camel_to_kebab
 from .delete_dir import delete_dir
 from .alpha_filter import alpha_filter
 
-def fileseeder( tipo = None, camelName = None, camelTraduccion = None, delete = False, renameFile = False ):
+def fileseeder( web = None, tipo = None, camelName = None, camelTraduccion = None, delete = False, renameFile = False ):
 
     # Definir carpeta raiz del proyecto
     root_path = os.getcwd()
@@ -12,15 +12,19 @@ def fileseeder( tipo = None, camelName = None, camelTraduccion = None, delete = 
     # Definir el directorio donde se encuentra instalado fileseeder
     fs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
+    if web == None:
+        web = 'design-system'
+    web_path = os.path.join(root_path, web)
+
     # Definir los directorios donde irá cada componente
-    org_path = os.path.join(root_path, 'web/src/sections')
-    mol_path = os.path.join(root_path, 'web/src/modules')
-    atom_path = os.path.join(root_path, 'web/src/styles/components/atoms')
+    org_path = os.path.join(root_path, 'design-system/src/sections')
+    mol_path = os.path.join(root_path, 'design-system/src/modules')
+    atom_path = os.path.join(root_path, 'design-system/src/styles/components/atoms')
+    land_path = os.path.join(root_path, 'design-system/src/styles/layouts')
     sdoc_path = os.path.join(root_path, 'backoffice/schemas')
     sobj_path = os.path.join(root_path, 'backoffice/schemas/objects')
-    gpag_path = os.path.join(root_path, 'web/src/pages')
-    gtemp_path = os.path.join(root_path, 'web/src/templates')
-    land_path = os.path.join(root_path, 'web/src/styles/layouts')
+    gpag_path = os.path.join(web_path, 'src/pages')
+    gtemp_path = os.path.join(web_path, 'src/templates')
 
     # Definir la ruta donde se encontrará el layout y los imports temporales en caso de gastby
     layout_path = os.path.join(root_path, 'temp_layout_fs.tsx')
@@ -113,7 +117,7 @@ def fileseeder( tipo = None, camelName = None, camelTraduccion = None, delete = 
 
     # Definir la ruta completa del archivo por crear
     if scss_file is not None:
-        if "web/src/styles" in destination_path:
+        if "src/styles" in destination_path:
             file_path = os.path.join(destination_path, "_" + kebabName + ".scss")
         else:
             file_path = os.path.join(destination_path, kebabName + ".scss")

@@ -1,10 +1,9 @@
 import os
 
 
-def build_temp_files( element , ndir ):
+def build_temp_files( md_path, element ):
 
     root_path = os.getcwd()
-    md_path = os.path.join(root_path, 'structure.md')
     layout_path = os.path.join(root_path, 'temp_layout_fs.tsx')
     imports_path = os.path.join(root_path, 'temp_imports_fs.tsx')
 
@@ -27,13 +26,7 @@ def build_temp_files( element , ndir ):
 
     organismos.sort()
 
-    path_fix = ""
-    ndir = int(ndir)
-
-    for i in range(ndir):
-        path_fix = path_fix + "../"
-
     with open(imports_path, 'w') as f:
-        f.write('import Layout from "'+path_fix+'../modules/Layout/Layout";\nimport { SEO } from "'+path_fix+'../modules/SEO/SEO";\n')
+        f.write('import Layout from "design-system/src/modules/Layout/Layout";\nimport { SEO } from "design-system/src/modules/SEO/SEO";\n')
         for organismo in organismos:
-            f.write('import { '+organismo+' } from "'+path_fix+'../sections/'+organismo+'/'+organismo+';"\n')
+            f.write('import { '+organismo+' } from "design-system/src/sections/'+organismo+'/'+organismo+';"\n')
