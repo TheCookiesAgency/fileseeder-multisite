@@ -35,7 +35,7 @@ sys.stdout = open(his_path, 'w')
 
 for md_path in md_paths:
 
-    web = md_path.split('/')[-1].split('_')[1].split('.')[0]
+    web = md_path.split('/')[-1].split('-')[1].split('.')[0]
 
     with open(md_path, 'r') as structure:
         for linea in structure:
