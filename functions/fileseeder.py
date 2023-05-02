@@ -14,6 +14,8 @@ def fileseeder( web = None, tipo = None, camelName = None, camelTraduccion = Non
 
     if web == None:
         web = 'design-system'
+    else:
+        web = os.path.join('webs', web)
     web_path = os.path.join(root_path, web)
 
     # Definir los directorios donde irá cada componente
