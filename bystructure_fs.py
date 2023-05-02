@@ -9,7 +9,7 @@ import subprocess
 
 root_path = os.getcwd()
 fs_path = os.path.dirname(os.path.abspath(__file__))
-stc_path = os.path.join(root_path, 'structure/structure_*.md')
+stc_path = os.path.join(root_path, 'structure/structure-*.md')
 his_path = os.path.join(root_path, 'historial_fs.txt')
 rs_path = os.path.join(fs_path, 'functions/read_history.py')
 
