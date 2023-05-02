@@ -25,9 +25,10 @@ parser.add_argument('--force', help='Ejecutar una operación forzada', action='s
 parser.add_argument('--show', help='Muestra toda la salida', action='store_true')
 parser.add_argument('--web', help='Crea solo los archivos que se crean en web', action='store_true')
 parser.add_argument('--backoffice', help='Crea solo los archivos que se crean en backoffice', action='store_true')
+parser.add_argument('--d', help='Elimina la estructura entera o --web o --backoffice', action='store_true')
 args = parser.parse_args()
 
-if args.web == False and args.backoffice == False:
+if args.web is False and args.backoffice is False:
     args.web = True
     args.backoffice = True
 
@@ -47,22 +48,24 @@ for md_path in md_paths:
                 if page_match_traduccion:
                     kebabTraduccion = linea.split(' - ')[1]
                 if args.web:
-                    build_temp_files(md_path, camelName)
-                    if args.force:
+                    if args.force or args.d:
                         if page_match_traduccion:
                             fileseeder( web, "gpag", camelName, kebabTraduccion, True, True)
                         if page_match_default:
                             fileseeder( web, "gpag", camelName, None, True)
                         fileseeder( web, "land", camelName, None, True)
-                    if page_match_traduccion:
-                        fileseeder( web, "gpag", camelName, kebabTraduccion, False, True)
-                    if page_match_default:
-                        fileseeder( web, "gpag", camelName)
-                    fileseeder( web, "land", camelName)
+                    if args.d is False:
+                        build_temp_files(md_path, camelName)
+                        if page_match_traduccion:
+                            fileseeder( web, "gpag", camelName, kebabTraduccion, False, True)
+                        if page_match_default:
+                            fileseeder( web, "gpag", camelName)
+                        fileseeder( web, "land", camelName)
                 if args.backoffice:
-                    if args.force:
+                    if args.force or args.d:
                         fileseeder( web, "sdoc", camelName, None, True)
-                    fileseeder( web, "sdoc", camelName)
+                    if args.d is False:
+                        fileseeder( web, "sdoc", camelName)
             template_match = re.search(r'^# (\w+)', linea)
             template_match_default = re.search(r'^# (\w+)$', linea)
             template_match_traduccion = re.search(r'^# (\w+) - ', linea)
@@ -71,40 +74,45 @@ for md_path in md_paths:
                 if template_match_traduccion:
                     kebabTraduccion = linea.split(' - ')[1]
                 if args.web:
-                    build_temp_files(md_path, camelName)
-                    if args.force:
+                    if args.force or args.d:
                         if page_match_traduccion:
                             fileseeder( web, "gtemp", camelName, kebabTraduccion, True, True)
                         if page_match_default:
                             fileseeder( web, "gtemp", camelName, None, True)
                         fileseeder( web, "land", camelName, None, True)
-                    if template_match_traduccion:
-                        fileseeder( web, "gtemp", camelName, kebabTraduccion, False, True)
-                    if template_match_default:
-                        fileseeder( web, "gtemp", camelName)
-                    fileseeder( web, "land", camelName)
+                    if args.d is False:
+                        build_temp_files(md_path, camelName)
+                        if template_match_traduccion:
+                            fileseeder( web, "gtemp", camelName, kebabTraduccion, False, True)
+                        if template_match_default:
+                            fileseeder( web, "gtemp", camelName)
+                        fileseeder( web, "land", camelName)
                 if args.backoffice:
-                    if args.force:
+                    if args.force or args.d:
                         fileseeder( web, "sdoc", camelName, None, True)
-                    fileseeder( web, "sdoc", camelName)
+                    if args.d is False:
+                        fileseeder( web, "sdoc", camelName)
             organism_match = re.search(r'^## (\w+)$', linea)
             if organism_match:
                 camelName = organism_match.group(1)
                 if args.web:
-                    if args.force:
+                    if args.force or args.d:
                         fileseeder( web, "org", camelName, None, True)
-                    fileseeder( web, "org", camelName)
+                    if args.d is False:
+                        fileseeder( web, "org", camelName)
                 if args.backoffice:
-                    if args.force:
+                    if args.force or args.d:
                         fileseeder( web, "sobj", camelName, None, True)
-                    fileseeder( web, "sobj", camelName)
+                    if args.d is False:
+                        fileseeder( web, "sobj", camelName)
             molecule_match = re.search(r'^### (\w+)$', linea)
             if molecule_match:
                 camelName = molecule_match.group(1)
                 if args.web:
-                    if args.force:
+                    if args.force or args.d:
                         fileseeder( web, "mol", camelName, None, True)
-                    fileseeder( web, "mol", camelName)
+                    if args.d is False:
+                        fileseeder( web, "mol", camelName)
 
 sys.stdout.close()
 

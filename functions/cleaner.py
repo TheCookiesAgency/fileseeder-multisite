@@ -10,6 +10,9 @@ desyst_path = os.path.join(fs_path, 'design-system')
 if os.path.exists(web_path):
     delete_dir(web_path)
 
+if os.path.exists(desyst_path):
+    delete_dir(desyst_path)
+
 if os.path.exists(backo_path):
     delete_dir(backo_path)
 
