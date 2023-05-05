@@ -52,6 +52,7 @@ def fileseeder( web = None, tipo = None, camelName = None, camelTraduccion = Non
     if tipo == "org":
         scss_file = os.path.join(fs_path, 'templates/Class-Organism.scss')
         tsx_file = os.path.join(fs_path, 'templates/React-Organism.tsx')
+        ts_file = os.path.join(fs_path, 'templates/Query-Graphql.ts')
         destination_path = org_path
         is_folder = True
         new_folder = camelName
@@ -197,6 +198,8 @@ def fileseeder( web = None, tipo = None, camelName = None, camelTraduccion = Non
                 with open(ts_file, 'r') as reference_file:
                     code = reference_file.read().replace('${NAME}', camelName)
                     code = code.replace('${TITLE}', kebabTraduccion)
+                if is_folder:
+                    file_path = os.path.join(destination_path, kebabName + "-gql.ts")
                 with open(file_path, 'w') as new_file:
                     new_file.write(code)
                 print(f'{file_path} creado')
